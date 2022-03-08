@@ -18,7 +18,7 @@ $ docker run --name jenkins-blueocean -d --network net-jenkins --env DOCKER_HOST
 
 - PORT: Host machine port number
 
-#### v0.1.0 latest
+### v0.1.0 latest
 
 Nordic nRF Mesh SDK를 컴파일 하기 위한 cmake compile 환경 세팅
 
@@ -28,14 +28,14 @@ https://hub.docker.com/repository/docker/tot0ro/nginx-neo
 
 내부 포트 8000 
 
-nginx conf와 www 디렉토리를 마운트 해야함
+conf와 www 디렉토리를 마운트 해야함
 
 ```bash
 $ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
  -v <THIS REPO>/nginx/www:/usr/share/nginx/www -p 80:8000 tot0ro/nginx-neo
 ```
 
-#### v0.1.0 latest
+### v0.1.0 latest
 
 nginx 서버 기본적으로 동작.
 
