@@ -39,4 +39,28 @@ $ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
 
 nginx 서버 기본적으로 동작.
 
+## MariaDB
+
+https://hub.docker.com/repository/docker/tot0ro/mariadb-neo
+
+내부포트 3306
+
+`/sql_query`를 마운트 해야함.
+
+```bash
+$ docker run -d --name mariadb -v <THIS REPO>/mariadb/sql_query:/sql_query \
+ -e MARIADB_USER=<USER_ID> -e MARIADB_PASSWORD=<USER_PW> -e MARIADB_ROOT_PASSWORD=<ROOT_PW> \
+ tot0ro/mariadb-neo
+```
+
+- USER\_ID: user id
+- USER\_PW: user password
+- ROOT\_PW: root password
+
+직접 정하면 된다.
+
+### v0.1.0 latest
+
+mariadb 기본적으로 동작
+
 ## Django
