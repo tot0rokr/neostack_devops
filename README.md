@@ -44,6 +44,15 @@ $ docker run -d --name mariadb -v <THIS REPO>/mariadb/sql_query:/sql_query \
 
 직접 정하면 된다.
 
+1. root 권한으로 db 생성
+1. db 사용 권한 인계
+	- `grant all privileges on <DB>.* to <USER>@<HOST>`
+	- DB: 디비 이름
+	- USER: 유저 이름
+	- HOST: 호스트(아이피), `'%'`: 모든 호스트
+	- `with grant option`: 권한 수여 권한
+
+
 ### v0.1.0 latest
 
 mariadb 기본적으로 동작
@@ -55,10 +64,16 @@ https://hub.docker.com/repository/docker/tot0ro/django-neo
 ```bash
 $ docker run --name intra -d -v <THIS REPO>/intra-django/app:/app \
  -e DJANGO_SECRET_KEY=<SECRET_KEY> \
+ -e DB_NAME=<DB_NAME> \
+ -e DB_USER=<DB_USER> \
+ -e DB_PASS=<DB_PASS> \
  tot0ro/django-neo
 ```
 
 - SECRET\_KEY: django key이다. [여기서](https://miniwebtool.com/django-secret-key-generator/) 새 key를 생성할 수 있다.
+- DB\_NAME: DB 이름. 해당 사이트에서 사용할 DB 이름이다.
+- DB\_USER: 유저 계정 id. DB\_NAME을 사용할 권한이 있어야 한다.
+- DB\_PASS: DB\_USER의 password.
 
 
 ### intra-v0.1.0
@@ -66,9 +81,17 @@ $ docker run --name intra -d -v <THIS REPO>/intra-django/app:/app \
 django 프로젝트 생성
 
 
-### intra-v0.2.0 latest
+### intra-v0.2.0
 
 wcgi를 통해 nginx와 연동. nginx-neo v0.2.0과 호환
+
+### intra-v0.3.0 latest
+
+MariaDB와 연동. 사용할 db 및 user가 생성되어 있어야 함
+
+- DB: intradb
+- USER: intradb\_user
+- PASS: intradb\_user
 
 
 

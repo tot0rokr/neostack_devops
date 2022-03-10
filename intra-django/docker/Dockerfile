@@ -14,4 +14,5 @@ RUN pip3 install gunicorn
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8888", "neo.wsgi:application"]
 
+RUN pip3 install mysqlclient
 
