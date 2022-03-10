@@ -64,3 +64,21 @@ $ docker run -d --name mariadb -v <THIS REPO>/mariadb/sql_query:/sql_query \
 mariadb 기본적으로 동작
 
 ## Django
+
+```bash
+$ docker run --name intra -d -v <THIS REPO>/intra-django/app:/app \
+ -e DJANGO_SECRET_KEY=<SECRET_KEY> \
+ tot0ro/django-neo
+```
+
+- SECRET\_KEY: django key이다. [여기서](https://miniwebtool.com/django-secret-key-generator/) 새 key를 생성할 수 있다.
+
+
+### intra-v0.1.0
+
+django 프로젝트 생성
+
+
+### intra-v0.2.0 latest
+
+wcgi를 통해 nginx와 연동. nginx-neo v0.2.0과 호환
