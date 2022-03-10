@@ -30,10 +30,10 @@ https://hub.docker.com/repository/docker/tot0ro/mariadb-neo
 
 내부포트 3306
 
-`/sql_query`를 마운트 해야함.
+data를 저장할 `/db_data`를 `/var/lib/mysql`에 마운트 해야함.
 
 ```bash
-$ docker run -d --name mariadb -v <THIS REPO>/mariadb/sql_query:/sql_query \
+$ docker run -d --name mariadb -v <THIS REPO>/mariadb/db_data:/var/lib/mysql \
  -e MARIADB_USER=<USER_ID> -e MARIADB_PASSWORD=<USER_PW> -e MARIADB_ROOT_PASSWORD=<ROOT_PW> \
  tot0ro/mariadb-neo
 ```
@@ -56,6 +56,11 @@ $ docker run -d --name mariadb -v <THIS REPO>/mariadb/sql_query:/sql_query \
 ### v0.1.0 latest
 
 mariadb 기본적으로 동작
+
+### v0.2.0 latest
+
+User contents를 mount하여 사용할 수 있는 volume 추가
+
 
 ## Django
 

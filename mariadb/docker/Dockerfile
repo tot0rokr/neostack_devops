@@ -1,7 +1,5 @@
 FROM mariadb:latest
 
-VOLUME ['/sql_query']
-
-WORKDIR /sql_query
+VOLUME ['/user-contents']
 
 # RUN [run sql query]
