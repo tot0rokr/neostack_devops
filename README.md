@@ -110,7 +110,7 @@ conf와 www 디렉토리를 마운트 해야함
 
 ```bash
 $ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
- -v <THIS REPO>/nginx/www:/usr/share/nginx/www -p 80:8000 \
+ -v <THIS REPO>/nginx/app:/usr/share/nginx/app -p 80:8000 \
  tot0ro/nginx-neo
 ```
 
