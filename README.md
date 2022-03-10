@@ -22,22 +22,7 @@ $ docker run --name jenkins-blueocean -d --network net-jenkins --env DOCKER_HOST
 
 Nordic nRF Mesh SDK를 컴파일 하기 위한 cmake compile 환경 세팅
 
-## Nginx
 
-https://hub.docker.com/repository/docker/tot0ro/nginx-neo
-
-내부 포트 8000 
-
-conf와 www 디렉토리를 마운트 해야함
-
-```bash
-$ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
- -v <THIS REPO>/nginx/www:/usr/share/nginx/www -p 80:8000 tot0ro/nginx-neo
-```
-
-### v0.1.0 latest
-
-nginx 서버 기본적으로 동작.
 
 ## MariaDB
 
@@ -65,6 +50,8 @@ mariadb 기본적으로 동작
 
 ## Django
 
+https://hub.docker.com/repository/docker/tot0ro/django-neo
+
 ```bash
 $ docker run --name intra -d -v <THIS REPO>/intra-django/app:/app \
  -e DJANGO_SECRET_KEY=<SECRET_KEY> \
@@ -82,3 +69,39 @@ django 프로젝트 생성
 ### intra-v0.2.0 latest
 
 wcgi를 통해 nginx와 연동. nginx-neo v0.2.0과 호환
+
+
+
+## Nginx
+
+https://hub.docker.com/repository/docker/tot0ro/nginx-neo
+
+내부 포트 8000
+
+conf와 www 디렉토리를 마운트 해야함
+
+```bash
+$ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
+ -v <THIS REPO>/nginx/www:/usr/share/nginx/www -p 80:8000 \
+ tot0ro/nginx-neo
+```
+
+### v0.1.0
+
+nginx 서버 기본적으로 동작.
+
+### v0.2.0 latest
+
+wcgi를 통해 django와 연동
+
+
+
+
+## 네트워크 연결
+
+```bash
+$ docker network create intra-net
+$ docker network connect intra-net mariadb
+$ docker network connect intra-net intra
+$ docker network connect intra-net nginx
+```
