@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+  db:
+    image: tot0ro/mariadb-neo
+    volumes:
+      - "db-data:/var/lib/mysql"
+    environment:
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASS}
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASS}
+    networks:
+      - db-net
+    restart: always
+
+  web-intra:
+    image: tot0ro/django-neo:intra-latest
+    volumes:
+      - "./intra-django/app:/app"
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
+    networks:
+      - intra-net
+      - db-net
+    depends_on:
+      - db
+    links:
+      - "db:maria"
+    restart: always
+
+  nginx:
+    image: tot0ro/nginx-neo
+    volumes:
+      - "./nginx/conf.d:/etc/nginx/conf.d"
+      - "./nginx/app:/usr/share/nginx/app"
+    ports:
+      - "80:8000"
+    networks:
+      - intra-net
+    depends_on:
+      - web-intra
+    links:
+      - "web-intra:intra"
+    restart: always
+
+  jenkins-docker:
+    image: docker:dind
+    volumes:
+      - "jenkins-docker-certs:/certs/client"
+      - "jenkins-data:/var/jenkins_home"
+    ports:
+      - "2376:2376"
+    command: --storage-driver=overlay2
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    networks:
+      jenkins-net:
+        aliases:
+          - docker
+      db-net:
+    privileged: true
+    depends_on:
+      - nginx
+    restart: always
+
+  jenkins-blueocean:
+    image: tot0ro/jenkins-blueocean-neo
+    volumes:
+      - "jenkins-data:/var/jenkins_home"
+      - "jenkins-docker-certs:/certs/client:ro"
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    networks:
+      - jenkins-net
+      - db-net
+    depends_on:
+      - jenkins-docker
+    restart: always
+
+
+networks:
+  intra-net:
+  jenkins-net:
+  db-net:
+
+volumes:
+  db-data:
+  jenkins-docker-certs:
+  jenkins-data:

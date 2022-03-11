@@ -1,135 +1,54 @@
-# Neostack devops project
+# Neostack Jenkins Server
 
-## Jenkins
+각 컴포넌트는 각각 README에서 확인하실 수 있습니다.
 
-https://hub.docker.com/repository/docker/tot0ro/jenkins-blueocean-neo
+## How to Use
 
-```bash
-$ docker network create net-jenkins
-$ docker run --name jenkins -d --privileged --network net-jenkins --network-alias docker \
- --env DOCKER_TLS_CERTDIR=/certs --volume jenkins-docker-certs:/certs/client \
- --volume jenkins-data:/var/jenkins_home --publish 2376:2376 docker:dind --storage-driver \
- overlay2
-$ docker run --name jenkins-blueocean -d --network net-jenkins --env DOCKER_HOST=tcp://docker:2376 \
- --env DOCKER_CERT_PATH=/certs/client --env DOCKER_TLS_VERIFY=1 -p <PORT>:8080 -p 50000:50000 \
- --volume jenkins-data:/var/jenkins_home --volume jenkins-docker-certs:/certs/client:ro \
- tot0ro/jenkins-blueocean-neo
-```
+### Jenkins
 
-- PORT: Host machine port number
+http://\<HOSTNAME\>:8080
 
-### v0.1.0 latest
+### Intra Net
 
-Nordic nRF Mesh SDK를 컴파일 하기 위한 cmake compile 환경 세팅
+http://\<HOSTNAME\>
 
 
+## How to up the containers
 
-## MariaDB
+설치: https://docs.docker.com/compose/install/
 
-https://hub.docker.com/repository/docker/tot0ro/mariadb-neo
-
-내부포트 3306
-
-data를 저장할 `/db_data`를 `/var/lib/mysql`에 마운트 해야함.
+최소 실행 시, MariaDB README에서 MariaDB 최초 실행 시 수행해야하는 명령을 따라주세요.
 
 ```bash
-$ docker run -d --name mariadb -v <THIS REPO>/mariadb/db_data:/var/lib/mysql \
- -e MARIADB_USER=<USER_ID> -e MARIADB_PASSWORD=<USER_PW> -e MARIADB_ROOT_PASSWORD=<ROOT_PW> \
- tot0ro/mariadb-neo
+$ cat > .env                             # 환경 변수 파일 생성
+DB_NAME='...'                            # Mariadb에서 생성한 DB 이름
+DB_USER='...'                            # DB에 접근 가능한 계정
+DB_PASS='...'                            # 계정 비밀번호
+DB_ROOT_PASS='...'                       # DB root 비밀번호
+DJANGO_SECRET_KEY='<SECRET_KEY>'         # django secret key
+$ docker-compose --env-file .env config  # docker-compose config 확인
+$ docker-compose --env-file .env up [-d] # -d: Daemon으로 실행
 ```
 
-- USER\_ID: user id
-- USER\_PW: user password
-- ROOT\_PW: root password
-
-직접 정하면 된다.
-
-1. root 권한으로 db 생성
-1. db 사용 권한 인계
-	- `grant all privileges on <DB>.* to <USER>@<HOST>`
-	- DB: 디비 이름
-	- USER: 유저 이름
-	- HOST: 호스트(아이피), `'%'`: 모든 호스트
-	- `with grant option`: 권한 수여 권한
-
-
-### v0.1.0 latest
-
-mariadb 기본적으로 동작
-
-### v0.2.0 latest
-
-User contents를 mount하여 사용할 수 있는 volume 추가
-
-
-## Django
-
-https://hub.docker.com/repository/docker/tot0ro/django-neo
-
-```bash
-$ docker run --name intra -d -v <THIS REPO>/intra-django/app:/app \
- -e DJANGO_SECRET_KEY=<SECRET_KEY> \
- -e DB_NAME=<DB_NAME> \
- -e DB_USER=<DB_USER> \
- -e DB_PASS=<DB_PASS> \
- tot0ro/django-neo
-```
-
+- ...을 채워주세요.
 - SECRET\_KEY: django key이다. [여기서](https://miniwebtool.com/django-secret-key-generator/) 새 key를 생성할 수 있다.
-- DB\_NAME: DB 이름. 해당 사이트에서 사용할 DB 이름이다.
-- DB\_USER: 유저 계정 id. DB\_NAME을 사용할 권한이 있어야 한다.
-- DB\_PASS: DB\_USER의 password.
+- 환경 변수 파일은 repository에 push하지 마십시오. (기본적으로 .env는 gitignore의 대상임)
 
+### Server Migrations
 
-### intra-v0.1.0
+다른 Host 머신으로 migration할 때, 다음 volume 이 저장된 디렉토리를 함께 이동하십시오.
 
-django 프로젝트 생성
-
-
-### intra-v0.2.0
-
-wcgi를 통해 nginx와 연동. nginx-neo v0.2.0과 호환
-
-### intra-v0.3.0 latest
-
-MariaDB와 연동. 사용할 db 및 user가 생성되어 있어야 함
-
-- DB: intradb
-- USER: intradb\_user
-- PASS: intradb\_user
-
-
-
-## Nginx
-
-https://hub.docker.com/repository/docker/tot0ro/nginx-neo
-
-내부 포트 8000
-
-conf와 www 디렉토리를 마운트 해야함
+- db-data
+- jenkins-data
+- jenkins-docker-certs
 
 ```bash
-$ docker run --name nginx -d -v <THIS REPO>/nginx/conf.d:/etc/nginx/conf.d \
- -v <THIS REPO>/nginx/app:/usr/share/nginx/app -p 80:8000 \
- tot0ro/nginx-neo
-```
+# 기존 Host 머신
+$ docker volume ls                 # volume 목록
+$ docker volume inspect <VOLUME>   # <VOLUME>의 상태 정보 (데이터 저장 위치)
+Mountpoint 디렉토리를 복사
 
-### v0.1.0
-
-nginx 서버 기본적으로 동작.
-
-### v0.2.0 latest
-
-wcgi를 통해 django와 연동
-
-
-
-
-## 네트워크 연결
-
-```bash
-$ docker network create intra-net
-$ docker network connect intra-net mariadb
-$ docker network connect intra-net intra
-$ docker network connect intra-net nginx
+# 새로운 Host 머신
+$ docker volume create <VOLUME>
+Mountpoint 디렉토리에 붙여넣기
 ```
