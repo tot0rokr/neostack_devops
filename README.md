@@ -26,12 +26,16 @@ DB_USER='...'                            # DB에 접근 가능한 계정
 DB_PASS='...'                            # 계정 비밀번호
 DB_ROOT_PASS='...'                       # DB root 비밀번호
 DJANGO_SECRET_KEY='<SECRET_KEY>'         # django secret key
+DJANGO_ALLOWED_HOSTS='<HOSTS>'           # django allowed hosts
+<Ctrl-C>
 $ docker-compose --env-file .env config  # docker-compose config 확인
 $ docker-compose --env-file .env up [-d] # -d: Daemon으로 실행
 ```
 
 - ...을 채워주세요.
-- SECRET\_KEY: django key이다. [여기서](https://miniwebtool.com/django-secret-key-generator/) 새 key를 생성할 수 있다.
+- SECRET\_KEY: django key이다. [여기서](https://miniwebtool.com/django-secret-key-generator/) 새 key를 생성할 수 있습니다.
+- HOSTS: 접속가능한 Host URL. 공백으로 구분된 리스트(콤마 아님).
+  - 자세한 내용은 [여기서](https://docs.djangoproject.com/en/4.0/ref/settings/#allowed-hosts) 살펴보실 수 있습니다.
 - 환경 변수 파일은 repository에 push하지 마십시오. (기본적으로 .env는 gitignore의 대상임)
 
 ### Server Migrations
