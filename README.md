@@ -28,7 +28,7 @@ DB_ROOT_PASS='...'                       # DB root 비밀번호
 DJANGO_SECRET_KEY='<SECRET_KEY>'         # django secret key
 DJANGO_ALLOWED_HOSTS='<HOSTS>'           # django allowed hosts
 DEBUG='<DEBUG>'                          # whether to debug or not
-<Ctrl-C>
+<Ctrl-c>
 $ docker-compose --env-file .env up [-d] # -d: Daemon으로 실행
 
 # 오류 시 아래 명령으로, docker compose 환경 확인
@@ -44,7 +44,7 @@ $ docker-compose --env-file .env config  # docker-compose config 확인
   - `0` - Release mode.
 - 환경 변수 파일은 repository에 push하지 마십시오. (기본적으로 .env는 gitignore의 대상임)
 
-### Server Migrations
+## Server Migrations
 
 다른 Host 머신으로 migration할 때, 다음 volume 이 저장된 디렉토리를 함께 이동하십시오.
 
