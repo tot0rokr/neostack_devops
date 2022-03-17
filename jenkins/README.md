@@ -12,7 +12,6 @@ $ docker run -d --name jenkins-docker \            # docker in docker container.
  --env DOCKER_TLS_CERTDIR=/certs \
  --volume jenkins-docker-certs:/certs/client \     # client certifications volume
  --volume jenkins-data:/var/jenkins_home \         # Data volume
- --publish 2376:2376 \
  docker:dind \
  --storage-driver overlay2
 

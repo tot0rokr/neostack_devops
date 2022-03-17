@@ -52,8 +52,6 @@ services:
     volumes:
       - "jenkins-docker-certs:/certs/client"
       - "jenkins-data:/var/jenkins_home"
-    ports:
-      - "2376:2376"
     command: --storage-driver=overlay2
     environment:
       - DOCKER_TLS_CERTDIR=/certs
