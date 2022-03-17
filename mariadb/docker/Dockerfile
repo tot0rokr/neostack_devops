@@ -1,5 +1,5 @@
 FROM mariadb:latest
 
-VOLUME ['/user-contents']
+VOLUME ["/user-contents"]
 
 # RUN [run sql query]
