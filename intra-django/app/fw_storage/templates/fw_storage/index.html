@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Nordic FW binary files</title>
+</head>
+<body>
+    <h1>Nordic Firmware</h1>
+
+    {% for i in fw_list %}
+    <hr/>
+    <h3><a href="{{ i.get_absolute_url }}">{{ i }}</a> / {{ i.built_at }} / {{ i.committed_at }} / {{ i.tag }}</h3>
+    {% endfor %}
+</body>
+</html>

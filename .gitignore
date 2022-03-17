@@ -1,6 +1,7 @@
 .python_history
 db_data/
 *.swp
+migrations/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

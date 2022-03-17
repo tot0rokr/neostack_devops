@@ -5,6 +5,7 @@ services:
     image: tot0ro/mariadb-neo
     volumes:
       - "db-data:/var/lib/mysql"
+        #- "media-volume:/var/lib/mysql/_media"
     environment:
       - MARIADB_USER=${DB_USER}
       - MARIADB_PASSWORD=${DB_PASS}
@@ -17,6 +18,8 @@ services:
     image: tot0ro/django-neo:intra-latest
     volumes:
       - "./intra-django/app:/app"
+      - "static-volume:/_static"
+      - "media-volume:/_media"
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
@@ -36,7 +39,8 @@ services:
     image: tot0ro/nginx-neo
     volumes:
       - "./nginx/conf.d:/etc/nginx/conf.d"
-      - "./nginx/app:/usr/share/nginx/app"
+      - "static-volume:/usr/share/nginx/app/_static"
+      - "media-volume:/usr/share/nginx/app/_media"
     ports:
       - "80:8000"
     networks:
@@ -99,3 +103,5 @@ volumes:
   db-data:
   jenkins-docker-certs:
   jenkins-data:
+  media-volume:
+  static-volume:

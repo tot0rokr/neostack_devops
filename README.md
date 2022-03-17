@@ -61,6 +61,7 @@ $ export $(cat .env | xargs -0)
 - db-data
 - jenkins-data
 - jenkins-docker-certs
+- media-volume
 
 ```bash
 # 기존 Host 머신

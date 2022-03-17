@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ fw.title }}</title>
+</head>
+<body>
+    <nav>
+        <a href="/">FW List</a>
+    </nav>
+    <h1>Nordic Firmware - {{ fw }}</h1>
+    <h3>{{ fw.built_at }} / {{ fw.committed_at }} / {{ fw.tag }}</h4>
+    <p>{{ fw.commit_message }}</p>
+    <p><a href="{{ fw.binary.url }}">{{ fw.binary }}</a></p>
+</body>
+</html>
