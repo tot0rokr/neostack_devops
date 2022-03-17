@@ -35,6 +35,11 @@ $ docker run -d --name jenkins-blueocean \         # Jenkins application contain
 Nordic nRF Mesh SDK를 컴파일 하기 위한 cmake compile 환경 세팅
 
 
-### v0.2.0 latest
+### v0.2.0
 
 CMake 및 ARM GCC 빌드 환경 설정을 제거
+
+
+### v0.3.0 latest
+
+mysql client 추가
