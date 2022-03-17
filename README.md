@@ -44,6 +44,16 @@ $ docker-compose --env-file .env config  # docker-compose config 확인
   - `0` - Release mode.
 - 환경 변수 파일은 repository에 push하지 마십시오. (기본적으로 .env는 gitignore의 대상임)
 
+
+## Developments
+
+Django의 경우, Host에서 개발하려면 위에서 생성한 환경변수를 추가해야한다.
+다음 명령을 수행하면, 위에 생성한 환경 변수들을 export 한다.
+
+```bash
+$ export $(cat .env | xargs -0)
+```
+
 ## Server Migrations
 
 다른 Host 머신으로 migration할 때, 다음 volume 이 저장된 디렉토리를 함께 이동하십시오.

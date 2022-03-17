@@ -21,6 +21,45 @@ $ docker run -d --name intra \
 - DB\_PASS: DB\_USER의 password.
 
 
+## Environments
+
+환경 변수의 경우, 점점 많아질 수 있다.
+이 경우, 매번 `-e <KEY>=<VALUE>` 옵션으로 넣기 힘들다.
+대신 `--env-file=<ENV FILE>` 옵션을 사용한다.
+
+```bash
+$ cat > <ENV FILE>
+<KEY>=<VALUE>
+<KEY>=<VALUE>
+<KEY>=<VALUE>
+...
+Ctrl+c
+$ docker ...축약... --env-file=<ENV FILE>
+```
+
+개발 환경에서도 동일한 환경변수를 사용하고 싶을 경우, 다음 명령으로 export 할 수 있다.
+
+```bash
+$ export $(cat <ENV FILE> | xargs -0)
+```
+
+
+## Requirements
+
+Django application을 개발할 때 필요한 패키지이다.
+어플리케이션을 동작시키는 것은 docker이므로, **"개발환경"**에 필요한 패키지만을 저장하고 있다.
+개발할 때, 추가적인 패키지가 요구된다면,
+
+```bash
+$ pip freeze > requirements.txt
+```
+
+새로운 개발환경 혹은 필요한 패키지가 설치되어있지 않다면,
+
+```bash
+$ pip install -r requirements.txt
+```
+
 ### intra-v0.1.0
 
 django 프로젝트 생성
