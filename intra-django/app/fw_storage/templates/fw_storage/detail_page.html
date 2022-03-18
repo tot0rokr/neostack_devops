@@ -9,8 +9,9 @@
         <a href="/">FW List</a>
     </nav>
     <h1>Nordic Firmware - {{ fw }}</h1>
-    <h3>{{ fw.built_at }} / {{ fw.committed_at }} / {{ fw.tag }}</h4>
-    <p>{{ fw.commit_message }}</p>
-    <p><a href="{{ fw.binary.url }}">{{ fw.binary }}</a></p>
+    <h3>{{ fw.commit_hash }}</h3>
+    <h4>built at {{ fw.built_at }} / committed at {{ fw.committed_at }}</h4>
+    <p>Author: {{ fw.author }}, Email: {{ fw.email }}</p>
+    <p><a href="{{ fw.fw_binary.url }}">{{ fw.fw_binary }}</a></p>
 </body>
 </html>
