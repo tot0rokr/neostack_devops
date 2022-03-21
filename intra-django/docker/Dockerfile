@@ -16,3 +16,5 @@ CMD ["gunicorn", "--bind", "0.0.0.0:8888", "neo.wsgi:application"]
 
 RUN pip3 install mysqlclient
 
+RUN pip3 install djangorestframework
+

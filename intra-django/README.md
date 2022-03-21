@@ -76,3 +76,8 @@ MariaDB와 연동. 사용할 db 및 user가 생성되어 있어야 함
 - DB: intradb
 - USER: intradb\_user
 - PASS: intradb\_user
+
+
+### intra-v0.4.0 latest
+
+Django Rest Framework 적용

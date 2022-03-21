@@ -5,7 +5,6 @@ services:
     image: tot0ro/mariadb-neo
     volumes:
       - "db-data:/var/lib/mysql"
-        #- "media-volume:/var/lib/mysql/_media"
     environment:
       - MARIADB_USER=${DB_USER}
       - MARIADB_PASSWORD=${DB_PASS}
@@ -63,7 +62,6 @@ services:
       jenkins-net:
         aliases:
           - docker
-      db-net:
     privileged: true
     depends_on:
       - nginx
@@ -74,7 +72,6 @@ services:
     volumes:
       - "jenkins-data:/var/jenkins_home"
       - "jenkins-docker-certs:/certs/client:ro"
-      - "media-volume:/_media"
     ports:
       - "8080:8080"
       - "50000:50000"
@@ -88,11 +85,10 @@ services:
       - TZ=Aisa/Seoul
     networks:
       - jenkins-net
-      - db-net
     depends_on:
       - jenkins-docker
     links:
-      - "db:maria"
+      - "web-intra:intra"
     restart: always
 
 
