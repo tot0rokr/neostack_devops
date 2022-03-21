@@ -1,7 +1,6 @@
 #Dockerfile
 FROM nginx:latest
 
-VOLUME [/etc/nginx/conf.d]
-VOLUME [/usr/share/nginx/app]
+VOLUME ["/etc/nginx/conf.d"]
 
 EXPOSE 8000
