@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    image: tot0ro/mariadb-neo
+    image: tot0ro/mariadb-neo:v0.2.0
     volumes:
       - "db-data:/var/lib/mysql"
     environment:
@@ -14,7 +14,7 @@ services:
     restart: always
 
   web-intra:
-    image: tot0ro/django-neo:intra-latest
+    image: tot0ro/django-neo:intra-v0.4.0
     volumes:
       - "./intra-django/app:/app"
       - "static-volume:/_static"
@@ -35,7 +35,7 @@ services:
     restart: always
 
   nginx:
-    image: tot0ro/nginx-neo
+    image: tot0ro/nginx-neo:v0.2.0
     volumes:
       - "./nginx/conf.d:/etc/nginx/conf.d"
       - "static-volume:/usr/share/nginx/app/_static"
@@ -68,7 +68,7 @@ services:
     restart: always
 
   jenkins-blueocean:
-    image: tot0ro/jenkins-blueocean-neo
+    image: tot0ro/jenkins-blueocean-neo:v0.4.0
     volumes:
       - "jenkins-data:/var/jenkins_home"
       - "jenkins-docker-certs:/certs/client:ro"
