@@ -20,6 +20,22 @@ $ docker run -d --name intra \
 - DB\_USER: 유저 계정 id. DB\_NAME을 사용할 권한이 있어야 한다.
 - DB\_PASS: DB\_USER의 password.
 
+### 최소 실행 시 아래 작업 수행
+
+1. Admin 계정 생성
+  ```bash
+  $ docker exec intra python manage.py createsuperuser
+  ```
+1. REST API 접근 계정 생성.
+  - Username: `<RESTAPI_USER>`
+  - Password: `<RESTAPI_PASS>`
+1. Permission 설정.
+  ```
+  fw_storage | nordic | Can add nordic
+  fw_storage | nordic | Can change nordic
+  fw_storage | nordic | Can delete nordic
+  fw_storage | nordic | Can view nordic
+  ```
 
 ## Environments
 

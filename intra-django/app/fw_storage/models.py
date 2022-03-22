@@ -16,7 +16,7 @@ class Nordic(models.Model):
 
 
     def __str__(self):
-        if self.state is not None and self.state is not '':
+        if self.state is not None and self.state != '':
             return f'(#{self.pk}){self.state}: {self.title}'
         else:
             return f'(#{self.pk}) {self.title}'

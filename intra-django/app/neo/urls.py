@@ -19,17 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-# REST
-from rest_framework import routers
-from fw_storage import api_views as fw_storage_views
-
-router = routers.DefaultRouter()
-router.register(r'nordics', fw_storage_views.NordicViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('fw_storage.urls')),
 ]
 

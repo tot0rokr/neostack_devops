@@ -79,16 +79,16 @@ services:
       - DOCKER_HOST=tcp://docker:2376
       - DOCKER_CERT_PATH=/certs/client
       - DOCKER_TLS_VERIFY=1
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
+      - RESTAPI_USER=${RESTAPI_USER}
+      - RESTAPI_PASS=${RESTAPI_PASS}
       - TZ=Aisa/Seoul
     networks:
       - jenkins-net
+      - intra-net
     depends_on:
       - jenkins-docker
     links:
-      - "web-intra:intra"
+      - "nginx:intra"
     restart: always
 
 

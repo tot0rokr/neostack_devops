@@ -17,17 +17,22 @@ http://\<HOSTNAME\>
 
 설치: https://docs.docker.com/compose/install/
 
-최소 실행 시, MariaDB README에서 MariaDB 최초 실행 시 수행해야하는 명령을 따라주세요.
+### 최소 실행 시
+
+- mariadb/README.md에서 MariaDB 최초 실행 시 수행해야하는 명령을 따라주세요.
+- intra-django/README.md에서 Django 최초 실행 시 수행해야하는 명령을 따라주세요.
 
 ```bash
 $ cat > .env                             # 환경 변수 파일 생성
 DB_NAME='...'                            # Mariadb에서 생성한 DB 이름
-DB_USER='...'                            # DB에 접근 가능한 계정
+DB_USER='...'                            # DB_NAME에 접근 가능한 DB 계정
 DB_PASS='...'                            # 계정 비밀번호
 DB_ROOT_PASS='...'                       # DB root 비밀번호
 DJANGO_SECRET_KEY='<SECRET_KEY>'         # django secret key
 DJANGO_ALLOWED_HOSTS='<HOSTS>'           # django allowed hosts
 DEBUG='<DEBUG>'                          # whether to debug or not
+RESTAPI_USER='...'                       # REST API를 사용할 수 있는 계정
+RESTAPI_PASS='...'                       # 계정 비밀번호 (계정 id와 너무 유사하면 안 됨)
 <Ctrl-c>
 $ docker-compose --env-file .env up [-d] # -d: Daemon으로 실행
 
