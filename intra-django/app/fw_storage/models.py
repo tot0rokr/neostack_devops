@@ -17,9 +17,9 @@ class Nordic(models.Model):
 
     def __str__(self):
         if self.state is not None and self.state != '':
-            return f'(#{self.pk}){self.state}: {self.title}'
+            return f'{self.title}'
         else:
-            return f'(#{self.pk}) {self.title}'
+            return f'{self.title}'
 
     def get_absolute_url(self):
         return f'/{self.pk}/'

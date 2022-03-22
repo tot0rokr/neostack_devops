@@ -3,21 +3,19 @@ from .models import Nordic
 
 # Create your views here.
 
-def index(request):
+def blog_home(request):
     fw_list = Nordic.objects.all().order_by('-pk')
 
-    return render(request,
-            'fw_storage/index.html',
+    return render(request, 'fw_storage/blog_home.html',
             {
                 'fw_list': fw_list,
             }
     )
 
-def detail_page(request, pk):
+def blog_post(request, pk):
     fw = Nordic.objects.get(pk=pk)
 
-    return render(request,
-            'fw_storage/detail_page.html',
+    return render(request, 'fw_storage/blog_post.html',
             {
                 'fw': fw,
             }

@@ -10,8 +10,8 @@ router.register(r'nordics', api_views.NordicViewSet)
 
 
 urlpatterns = [
-    path('<int:pk>/', views.detail_page),
-    path('', views.index, name='index'),
+    path('', views.blog_home, name='blog_home'),
+    path('<int:pk>/', views.blog_post),
     path('api/', include(router.urls)),
     path('api/auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
