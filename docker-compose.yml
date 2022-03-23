@@ -9,6 +9,7 @@ services:
       - MARIADB_USER=${DB_USER}
       - MARIADB_PASSWORD=${DB_PASS}
       - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - TZ=Asia/Seoul
     networks:
       - db-net
     restart: always
@@ -25,6 +26,7 @@ services:
       - DB_PASS=${DB_PASS}
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY}
       - DJANGO_ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS}
+      - TZ=Asia/Seoul
     networks:
       - intra-net
       - db-net
@@ -40,6 +42,8 @@ services:
       - "./nginx/conf.d:/etc/nginx/conf.d"
       - "static-volume:/usr/share/nginx/app/_static"
       - "media-volume:/usr/share/nginx/app/_media"
+    environment:
+      - TZ=Asia/Seoul
     ports:
       - "80:8000"
     networks:
@@ -81,7 +85,7 @@ services:
       - DOCKER_TLS_VERIFY=1
       - RESTAPI_USER=${RESTAPI_USER}
       - RESTAPI_PASS=${RESTAPI_PASS}
-      - TZ=Aisa/Seoul
+      - TZ=Asia/Seoul
     networks:
       - jenkins-net
       - intra-net
